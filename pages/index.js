@@ -1,11 +1,13 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import Header from "@/components/Header";
 
 const Home = () => {
-  const router = useRouter();
-  useEffect(() => {
-    router.push("/auth/login");
-  }, []);
-  return <>Name </>;
+  return (
+    <div>
+      <Header />
+      <div className="py-96 bg-[#090e20]">
+
+      </div>
+    </div>
+  );
 };
 export default Home;

@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className="mx-5">
-      <div className="pt-32 text-center">
+      <div className="pt-16 lg:pt-32 text-center">
         <h1 className="text-2xl lg:text-4xl font-extrabold text-gray-700">
           <div class="animate-text bg-gradient-to-r from-primary via-secondary to-fourth text-transparent bg-clip-text transition-colors duration-500">
             <p class="lg:text-5xl text-3xl font-extrabold">
