@@ -3,10 +3,10 @@ import Header from "@/components/Header";
 const Home = () => {
   return (
     <div>
-      <Header />
+      {/* <Header />
       <div className="py-96 bg-[#090e20]">
 
-      </div>
+      </div> */}
     </div>
   );
 };
