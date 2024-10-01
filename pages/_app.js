@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Head from "next/head";
-import Dashboard from "@/components/Dashboard";
+import SideBar from "@/components/SideBar";
 import { useRouter } from "next/router";
 import classNames from "@/constants/custom";
 import DataContext from "@/contexts/DataContext";
@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }) {
           />
           <title>Money</title>
         </Head>
-        {router.asPath !== "/auth/login" && <Dashboard user={user} />}
+        {router.asPath !== "/auth/login" && <SideBar user={user} />}
         <div
           className={classNames(
             router.asPath !== "/auth/login" &&
