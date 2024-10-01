@@ -3,11 +3,15 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { GoogleSpreadsheet } from "google-spreadsheet";
 
 const LoginForm = () => {
   const router = useRouter();
 
   const handleSuccess = (credentialResponse) => {
+    console.log("====================================");
+    console.log(credentialResponse);
+    console.log("====================================");
     const token = credentialResponse.access_token;
     fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
       headers: {
@@ -16,6 +20,7 @@ const LoginForm = () => {
     })
       .then((response) => response.json())
       .then((userInfo) => {
+        userInfo.token = token;
         localStorage.setItem("user", JSON.stringify(userInfo));
         window.location.href = "/";
       })
@@ -65,7 +70,9 @@ const LoginForm = () => {
               className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-orange-600 shadow-sm rounded-lg"
             />
           </div>
-          <button className="w-full mb-3 px-4 py-2 text-white font-medium bg-orange-600 hover:bg-orange-500 active:bg-orange-600 rounded-lg duration-150">
+          <button
+            className="w-full mb-3 px-4 py-2 text-white font-medium bg-orange-600 hover:bg-orange-500 active:bg-orange-600 rounded-lg duration-150"
+          >
             Sign in
           </button>
         </form>
