@@ -26,6 +26,8 @@ const LoginForm = () => {
 
   const login = useGoogleLogin({
     onSuccess: handleSuccess,
+    scope:
+      "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/spreadsheets",
   });
 
   useEffect(() => {
@@ -114,7 +116,7 @@ const LoginForm = () => {
 
 const authProvider = () => {
   return (
-    <GoogleOAuthProvider clientId={"70658986281-8p73mimd3ofglgu85dqgaa3eo0u05bk1.apps.googleusercontent.com"}>
+    <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
       <LoginForm />
     </GoogleOAuthProvider>
   );

@@ -1,12 +1,14 @@
 import Header from "@/components/Header";
+import Head from "next/head";
 
 const Home = () => {
+  
   return (
     <div>
-      {/* <Header />
-      <div className="py-96 bg-[#090e20]">
-
-      </div> */}
+      <Head>
+        <title>Dashboard - Money</title>
+      </Head>
+      {/* <Header /> */}
     </div>
   );
 };
