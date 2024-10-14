@@ -1,9 +1,10 @@
 import React from "react";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { GoogleSpreadsheet } from "google-spreadsheet";
+import Link from "next/link";
+import Head from "next/head";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -44,39 +45,56 @@ const LoginForm = () => {
 
   return (
     <main className="w-full h-screen flex flex-col items-center justify-center px-4">
+      <Head>
+        <title>Login - Money</title>
+      </Head>
       <div className="max-w-sm w-full text-gray-600 space-y-8">
-        <div className="text-center pb-10">
+        <div className="text-center pb-5">
           <img src="/logo.png" width={120} className="mx-auto" />
-          <div className="mt-5">
-            <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
+          <div class="animate-text bg-gradient-to-r from-primary via-secondary to-fourth text-transparent bg-clip-text transition-colors duration-500">
+            <p class="lg:text-3xl text-3xl font-extrabold">
               Log in to your account
-            </h3>
+            </p>
           </div>
         </div>
         <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
-          <div>
-            <label className="font-medium">Email</label>
+          <div class="relative">
             <input
               type="email"
-              required
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-orange-600 shadow-sm rounded-lg"
+              id="email"
+              class="block px-2.5 pb-2.5 pt-2 w-full text- font-medium text-gray-700 bg-transparent rounded-md appearance-none border focus:outline-none focus:ring-0 border-gray-500 focus:border-primary peer"
+              placeholder=" "
             />
+            <label
+              for="email"
+              class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-primary peer-focus:font-bold cursor-text peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+            >
+              Enter your email
+            </label>
           </div>
-          <div>
-            <label className="font-medium">Password</label>
+          <div class="relative">
             <input
               type="password"
-              required
-              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-orange-600 shadow-sm rounded-lg"
+              id="password"
+              class="block px-2.5 pb-2.5 pt-2 w-full text- font-medium text-gray-700 bg-transparent rounded-md appearance-none border focus:outline-none focus:ring-0 border-gray-500 focus:border-primary peer"
+              placeholder=" "
             />
+            <label
+              for="password"
+              class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-primary peer-focus:font-bold cursor-text peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+            >
+              Enter your password
+            </label>
           </div>
-          <button
-            className="w-full mb-3 px-4 py-2 text-white font-medium bg-orange-600 hover:bg-orange-500 active:bg-orange-600 rounded-lg duration-150"
-          >
+          <button className="w-full mb-2 px-4 py-2 text-white font-medium bg-orange-600 hover:bg-orange-500 active:bg-orange-600 rounded-lg duration-150">
             Sign in
           </button>
         </form>
-
+        <div class="relative flex items-center">
+          <div class="flex-grow border-t border-secondary"></div>
+          <span class="flex-shrink mx-4 text-xs text-secondary">OR</span>
+          <div class="flex-grow border-t border-secondary"></div>
+        </div>
         {/* Google Login Button */}
         <div className="google-login">
           <button
@@ -115,18 +133,19 @@ const LoginForm = () => {
             </svg>
             Continue with Google
           </button>
+          <p className="text-sm mt-3 text-center text-gray-700">
+            Don't have an account?{" "}
+            <Link
+              href="/auth/signup"
+              className="text-secondary font-bold hover:text-primary"
+            >
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </main>
   );
 };
 
-const authProvider = () => {
-  return (
-    <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
-      <LoginForm />
-    </GoogleOAuthProvider>
-  );
-};
-
-export default authProvider;
+export default LoginForm;

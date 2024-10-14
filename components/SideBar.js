@@ -2,6 +2,7 @@
 import classNames from "@/constants/custom";
 import { faCartShopping, faCircleInfo, faCommentDots, faFileLines, faGear, faMoneyBill, faSquarePollVertical, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 const SideBar = ({ user }) => {
@@ -53,20 +54,18 @@ const SideBar = ({ user }) => {
     }
 
   ]
-
   return (
     <div className="bg-flashwhite absolute min-h-screen w-[230px] border-r border-gray-300 p-4">
       {/* Profile */}
-      <div className="p-3 font-normal flex">
+      <div className="py-3 px-2 font-normal w-full flex">
         <img
           src={user.picture}
           alt=""
-          className=" h-10 w-10 rounded-full ring-1 ring-primary p-1"
+          className="h-10 w-10 rounded-full ring-1 ring-primary p-1"
         />
         <div className="ms-3">
-        <p className="font-semibold text-slate-500 overflow-hidden text-ellipsis whitespace-nowrap max-w-[120px]">
-        {user.name}</p>
-          <p className="text-[10px] text-slate-500 overflow-hidden text-ellipsis whitespace-nowrap max-w-[120px]">
+        <p className="font-semibold text-slate-500 overflow-hidden text-sm text-ellipsis whitespace-nowrap w-[120px]">{user.name}</p>
+          <p className="text-[10px] text-slate-500 overflow-hidden text-ellipsis whitespace-nowrap w-[120px]">
             {user.email}
           </p>
         </div>
@@ -79,10 +78,10 @@ const SideBar = ({ user }) => {
         </p>
         <ul className="inline-flex gap-2 w-full flex-col">
           {menuList.map((item, index) => (
-            <li
+            <Link href={item.link}><li
               key={index}
               className={
-                "gap-3 cursor-pointer pr-16 items-center px-5 py-2 text-sm text-slate-500 truncate rounded-3xl hover:bg-white inline-flex " +
+                "gap-3 cursor-pointer w-full items-center px-5 py-2 text-sm text-slate-500 truncate rounded-3xl hover:bg-white inline-flex " +
                 (activeMenu == item.link ? "bg-white" : "")
               }
             >
@@ -91,7 +90,7 @@ const SideBar = ({ user }) => {
                 icon={item.icon}
               />
               {item.title}
-            </li>
+            </li></Link>
           ))}
         </ul>
       </div>
@@ -102,10 +101,10 @@ const SideBar = ({ user }) => {
         </p>
         <ul className="inline-flex gap-2 w-full flex-col">
           {othersList.map((item, index) => (
-            <li
+            <Link href={item.link}><li
               key={index}
               className={
-                "gap-3 cursor-pointer pr-16 items-center px-5 py-2 text-sm text-slate-500 truncate rounded-3xl hover:bg-white inline-flex " +
+                "gap-3 cursor-pointer w-full items-center px-5 py-2 text-sm text-slate-500 truncate rounded-3xl hover:bg-white inline-flex " +
                 (activeMenu == item.link ? "bg-white" : "")
               }
             >
@@ -114,7 +113,7 @@ const SideBar = ({ user }) => {
                 icon={item.icon}
               />
               {item.title}
-            </li>
+            </li></Link>
           ))}
         </ul>
       </div>
