@@ -229,7 +229,7 @@ const Signup = () => {
               )}
             >
               <FontAwesomeIcon icon={faUserPlus} className="mr-3" />
-              "Create new account"
+              Create new account
             </button>
             <div class="relative flex items-center">
               <div class="flex-grow border-t border-secondary"></div>

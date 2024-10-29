@@ -1,32 +1,50 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import Link from "next/link";
 import Head from "next/head";
+import LoaderContext from "@/contexts/LoaderContext";
+import sheetApiContext from "@/contexts/SheetContext";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const router = useRouter();
+  const { setLoading } = useContext(LoaderContext);
+  const { loadDoc } = useContext(sheetApiContext);
+
 
   const handleSuccess = (credentialResponse) => {
-    console.log("====================================");
-    console.log(credentialResponse);
-    console.log("====================================");
+    console.log('hrere...');
+    
+    setLoading(true);
     const token = credentialResponse.access_token;
+    
     fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
-      .then((userInfo) => {
-        userInfo.token = token;
+      .then(async (userInfo) => {
+        userInfo.token = token
+        console.log(userInfo, "userInfo....");
+        const { data, doc } = await loadDoc();
+        const user = data.filter((user) => {
+          return user.get("Email") === userInfo.email;
+        });
+        if (user.length==0) {
+          toast.error("User doesn't exists. Please Signup.");
+          setLoading(false);
+          return;
+        }
         localStorage.setItem("user", JSON.stringify(userInfo));
-        window.location.href = "/";
+        router.replace("/");
       })
       .catch((error) => {
         console.error("Failed to fetch user info: ", error);
+        setLoading(false);
       });
   };
 
@@ -42,6 +60,25 @@ const LoginForm = () => {
       router.replace("/");
     }
   }, []);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    if (!credentials.email || !credentials.password || !credentials.name) {
+      toast.error("Please enter your credentials");
+      return;
+    }
+    setLoading(true);
+    const { data, doc } = await loadDoc();
+    const user = data.filter((user) => {
+      return user.get("Email") === credentials.email;
+    });
+    if (user.length==0) {
+      toast.error("User Doesn't exists");
+      setLoading(false);
+      return;
+    }
+  };
+
 
   return (
     <main className="w-full h-screen flex flex-col items-center justify-center px-4">

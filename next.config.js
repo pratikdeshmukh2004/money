@@ -17,6 +17,9 @@ const nextConfig = {
     GOOGLE_SPREADSHEET_ID: process.env.GOOGLE_SPREADSHEET_ID,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   },
+  images:{
+    domains: ['lh3.googleusercontent.com']
+  }
 };
 
 module.exports = nextConfig;
